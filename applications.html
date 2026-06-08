@@ -742,7 +742,6 @@ function countChars(fieldId, countId, max) {
   el.textContent = `${len} / ${max}`;
   el.className = 'char-count' + (len > max * 0.9 ? (len >= max ? ' over' : ' warn') : '');
 }
-
 function submitForm(e) {
   e.preventDefault();
 
@@ -750,18 +749,42 @@ function submitForm(e) {
   btn.disabled = true;
   btn.textContent = 'Submitting...';
 
-  // Simulate submission delay
-  setTimeout(() => {
+  const data = {
+    role: selectedRole,
+    discordUser: document.getElementById('discordUser').value,
+    age: document.getElementById('age').value,
+    timezone: document.getElementById('timezone').value,
+    hours: document.getElementById('hours').value,
+    why: document.getElementById('why').value,
+    experience: document.getElementById('experience').value,
+    mcUser: document.getElementById('mcUser').value || "N/A",
+    scenario: document.getElementById('scenario').value,
+    extra: document.getElementById('extra').value
+  };
+
+  fetch("https://discord-bot1-laji.onrender.com/apply", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(res => {
     document.getElementById('formWrap').style.display = 'none';
     document.getElementById('rolesGrid').style.display = 'none';
 
     const appId = 'APP-' + Date.now().toString(36).toUpperCase();
     document.getElementById('successId').textContent = `Application ID: ${appId}`;
 
-    const success = document.getElementById('successScreen');
-    success.classList.add('visible');
-    success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, 1200);
+    document.getElementById('successScreen').classList.add('visible');
+  })
+  .catch(err => {
+    alert("Failed to submit application!");
+    console.error(err);
+    btn.disabled = false;
+    btn.textContent = 'Submit Application';
+  });
 }
 
 function resetForm() {
