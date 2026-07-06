@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Golden Heart SMP</title>
+<link rel="icon" type="image/webp" href="https://i.ibb.co/20YsQ6FF/025dafe43e21276b0d6eb6234766a523.webp">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
@@ -62,6 +63,11 @@ nav {
 .nav-logo {
   font-family: Rajdhani; font-size: 22px; font-weight:700;
   color: var(--gold); letter-spacing:1px;
+  display:flex; align-items:center; gap:10px;
+}
+.nav-logo img {
+  width:34px; height:34px; border-radius:50%;
+  object-fit:cover; border:1px solid var(--border);
 }
 .nav-links { display:flex; gap:6px; align-items:center; }
 .nav-link {
@@ -336,7 +342,10 @@ footer span { color:var(--gold); }
 
 <!-- ════ NAV ════ -->
 <nav>
-  <div class="nav-logo">⚔ GoldenHeart SMP</div>
+  <div class="nav-logo">
+    <img src="https://i.ibb.co/20YsQ6FF/025dafe43e21276b0d6eb6234766a523.webp" alt="GoldenHeart SMP Logo" onerror="this.style.display='none'">
+    ⚔ GoldenHeart SMP
+  </div>
   <div class="nav-links">
     <button class="nav-link active" onclick="showPage('home',this)">Home</button>
     <button class="nav-link" onclick="showPage('apply',this)">Apply</button>
@@ -777,7 +786,7 @@ async function submitForm() {
 
   try {
     // send to your backend (which saves to MongoDB)
-    const res = await fetch('https://discord-bot1-laji.onrender.com/apply', {
+    const res = await fetch('https://backend-gdph.onrender.com/apply', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
